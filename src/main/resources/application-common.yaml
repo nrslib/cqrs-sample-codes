@@ -1,0 +1,12 @@
+axon:
+  serializer:
+    general: jackson
+    events: jackson
+    messages: jackson
+server:
+  port: 8080
+springdoc:
+  packages-to-scan: com.example.cqrssamplecodes
+  paths-to-match: "/api/**"
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
