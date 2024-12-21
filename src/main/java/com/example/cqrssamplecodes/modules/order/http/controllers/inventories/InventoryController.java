@@ -10,6 +10,7 @@ import com.example.cqrssamplecodes.modules.order.http.models.inventories.find.In
 import com.example.cqrssamplecodes.modules.order.http.models.inventories.get.InventoryGetResponse;
 import com.example.cqrssamplecodes.modules.order.http.models.inventories.post.InventoryPostRequest;
 import com.example.cqrssamplecodes.modules.order.http.models.inventories.post.InventoryPostResponse;
+import com.example.cqrssamplecodes.modules.order.http.models.inventories.stock.InventoryStockRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.queryhandling.QueryGateway;
@@ -48,7 +49,7 @@ public record InventoryController(CommandGateway commandGateway, QueryGateway qu
     }
 
     @PostMapping("{productId}/stock")
-    public void stock(@PathVariable String productId, @RequestBody InventoryAddStock request) {
+    public void stock(@PathVariable String productId, @RequestBody InventoryStockRequest request) {
         var command = new InventoryAddStock(productId, request.quantity());
         commandGateway.sendAndWait(command);
     }

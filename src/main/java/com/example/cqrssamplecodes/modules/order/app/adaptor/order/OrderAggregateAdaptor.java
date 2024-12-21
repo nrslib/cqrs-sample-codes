@@ -1,6 +1,7 @@
 package com.example.cqrssamplecodes.modules.order.app.adaptor.order;
 
 import com.example.cqrssamplecodes.modules.order.app.adaptor.order.commands.OrderCancel;
+import com.example.cqrssamplecodes.modules.order.app.adaptor.order.commands.OrderConfirm;
 import com.example.cqrssamplecodes.modules.order.app.adaptor.order.commands.OrderCreate;
 import com.example.cqrssamplecodes.modules.order.app.domain.models.order.Order;
 import com.example.cqrssamplecodes.modules.order.app.domain.models.order.OrderId;
@@ -32,6 +33,12 @@ public class OrderAggregateAdaptor {
     public OrderAggregateAdaptor(OrderCreate command) {
         var orderId = new OrderId();
         var event = Order.create(orderId, command.items());
+        AggregateLifecycle.apply(event);
+    }
+
+    @CommandHandler
+    public void handle(OrderConfirm command) {
+        var event = order.confirm();
         AggregateLifecycle.apply(event);
     }
 
